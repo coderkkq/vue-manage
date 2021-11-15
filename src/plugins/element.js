@@ -17,6 +17,7 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   Card,
+  // 栅格系统的行row 和 列 col
   Row,
   Col,
   Table,
@@ -25,7 +26,11 @@ import {
   Tooltip,
   Pagination,
   Dialog,
-  MessageBox
+  MessageBox,
+  Tag,
+  Tree,
+  Select,
+  Option
 } from 'element-ui'
 
 // 全局注册组件
@@ -51,6 +56,10 @@ Vue.use(Switch)
 Vue.use(Tooltip)
 Vue.use(Pagination)
 Vue.use(Dialog)
+Vue.use(Tag)
+Vue.use(Tree),
+Vue.use(Select),
+Vue.use(Option)
 
 
 // Message组件比较特殊，需要全局挂载，$message（这是自定义的名字）
