@@ -366,7 +366,7 @@ export default {
       this.editForm = res.data;
       // console.log(this.editForm);
     },
-    // 监听编辑用户对话框关闭的事件
+    // 监听编辑用户对话框关闭的事件重置表单
     editDialogClose() {
       this.$refs.editFormRef.resetFields();
     },

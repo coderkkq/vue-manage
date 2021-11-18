@@ -30,7 +30,8 @@ import {
   Tag,
   Tree,
   Select,
-  Option
+  Option,
+  Cascader
 } from 'element-ui'
 
 // 全局注册组件
@@ -59,7 +60,8 @@ Vue.use(Dialog)
 Vue.use(Tag)
 Vue.use(Tree),
 Vue.use(Select),
-Vue.use(Option)
+Vue.use(Option),
+Vue.use(Cascader)
 
 
 // Message组件比较特殊，需要全局挂载，$message（这是自定义的名字）
