@@ -31,7 +31,10 @@ import {
   Tree,
   Select,
   Option,
-  Cascader
+  Cascader,
+  Alert,
+  Tabs,
+  TabPane
 } from 'element-ui'
 
 // 全局注册组件
@@ -58,10 +61,13 @@ Vue.use(Tooltip)
 Vue.use(Pagination)
 Vue.use(Dialog)
 Vue.use(Tag)
-Vue.use(Tree),
-Vue.use(Select),
-Vue.use(Option),
+Vue.use(Tree)
+Vue.use(Select)
+Vue.use(Option)
 Vue.use(Cascader)
+Vue.use(Alert)
+Vue.use(Tabs)
+Vue.use(TabPane)
 
 
 // Message组件比较特殊，需要全局挂载，$message（这是自定义的名字）

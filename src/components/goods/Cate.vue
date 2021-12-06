@@ -241,10 +241,13 @@ export default {
   methods: {
     // 获取商品分类数据
     async getCateList() {
-      const { data: res } = await this.$http.get("categories", {
+      const data = await this.$http.get("categories", {
         params: this.queryInfo,
       });
-      if (res.meta.status !== 200) {
+      let res = data.res
+      if (res.meta.status == 200) {
+        console.log("chenggong");
+      } else {
         return this.$message.error("获取商品分类数据失败！");
       }
       console.log(res.data);
@@ -381,22 +384,26 @@ export default {
     },
     // 根据id 删除 指定分类
     async removeCateById(id) {
-      const confirmResult = await this.$confirm("此操作将永久删除该分类, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      }).catch(err => err)
+      const confirmResult = await this.$confirm(
+        "此操作将永久删除该分类, 是否继续?",
+        "提示",
+        {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        }
+      ).catch((err) => err);
       // 如果取消了，返回取消的信息
       if (confirmResult !== "confirm") {
         return this.$message.info("已取消删除");
       }
       // 点击确认发送网络请求
-      const {data: res} = await this.$http.delete('categories/'+ id)
-      if(res.meta.status !== 200) {
-        this.$message.error('删除分类失败！')
+      const { data: res } = await this.$http.delete("categories/" + id);
+      if (res.meta.status !== 200) {
+        this.$message.error("删除分类失败！");
       }
-      this.$message.success('删除分类成功！')
-      this.getCateList()
+      this.$message.success("删除分类成功！");
+      this.getCateList();
     },
   },
 };

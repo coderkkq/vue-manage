@@ -178,9 +178,7 @@
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="setRoleDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="saveRoleInfo"
-          >确 定</el-button
-        >
+        <el-button type="primary" @click="saveRoleInfo">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -288,7 +286,7 @@ export default {
       // 保存的所有角色的列表数据
       rolesList: [],
       // 分配新角色表单绑定的已选中角色id值
-      selectedRoleId: ''
+      selectedRoleId: "",
     };
   },
   created() {
@@ -401,7 +399,7 @@ export default {
       // 如果某个函数调用返回的结果是一个promise，则可以
       // 使用async 和 await 来修饰
       // 这里使用了 message-box组件的弹框 效果
-      const confirmResult = await this.$confirm(
+      await this.$confirm(
         "此操作将永久删除该用户信息, 是否继续?",
         "提示",
         {
@@ -409,20 +407,23 @@ export default {
           cancelButtonText: "取消",
           type: "warning",
         }
-      ).catch((err) => err);
+      )
+        .then(async(s) => {
+          if (s !== "confirm") {
+            return this.$message.info("已取消删除");
+          }
+          const { data: res } = await this.$http.delete("users/" + id);
+          //  console.log(res);
+          if (res.meta.status !== 200) {
+            return this.$message.error("删除用户失败！");
+          }
+          this.$message.success("删除用户成功！");
+          this.getUsersList();
+        })
+        .catch((err) => err);
       // console.log(confirmResult);
       // 如果用户确认删除，则返回的是字符串confirm
       // 如果用户取消删除，则返回的是字符串cancel
-      if (confirmResult !== "confirm") {
-        return this.$message.info("已取消删除");
-      }
-      const { data: res } = await this.$http.delete("users/" + id);
-      //  console.log(res);
-      if (res.meta.status !== 200) {
-        return this.$message.error("删除用户失败！");
-      }
-      this.$message.success("删除用户成功！");
-      this.getUsersList();
     },
     // 点击分配角色按钮,展示分配角色对话框
     async showSetRoleDialog(userInfo) {
@@ -441,30 +442,31 @@ export default {
     },
     // 点击确认按钮，分配角色
     async saveRoleInfo() {
-      if(!this.selectedRoleId) {
-        return this.$message.error('请选择要分配的角色！')
+      if (!this.selectedRoleId) {
+        return this.$message.error("请选择要分配的角色！");
       }
       // 发送网络请求
-      const {data: res} = await this.$http.
-      put(`users/${this.userInfo.id}/role`,
-      {rid: this.selectedRoleId})
-      if(res.meta.status !== 200) {
-        return this.$message.error('更新角色失败！')
+      const { data: res } = await this.$http.put(
+        `users/${this.userInfo.id}/role`,
+        { rid: this.selectedRoleId }
+      );
+      if (res.meta.status !== 200) {
+        return this.$message.error("更新角色失败！");
       }
 
-      this.$message.success('更新角色成功！')
+      this.$message.success("更新角色成功！");
       // 刷新用户列表
-      this.getUsersList()
+      this.getUsersList();
       // 隐藏分配角色对话框
-      this.setRoleDialogVisible = false
+      this.setRoleDialogVisible = false;
     },
     // 监听分配角色对话框的关闭，重置对话框内容
     setRoleDialogClosed() {
       // 清空表单绑定的角色id值
-      this.selectedRoleId = ''
+      this.selectedRoleId = "";
       // 清空用户信息
-      this.userInfo = ''
-    }
+      this.userInfo = "";
+    },
   },
 };
 </script>
