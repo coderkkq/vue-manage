@@ -241,14 +241,13 @@ export default {
   methods: {
     // 获取商品分类数据
     async getCateList() {
-      const data = await this.$http.get("categories", {
+      const {data: res} = await this.$http.get("categories", {
         params: this.queryInfo,
       });
-      let res = data.res
       if (res.meta.status == 200) {
-        console.log("chenggong");
+        console.log("获取商品分类数据成功");
       } else {
-        return this.$message.error("获取商品分类数据失败！");
+        // return this.$message.error("获取商品分类数据失败！");
       }
       console.log(res.data);
       // 保存商品分类数据

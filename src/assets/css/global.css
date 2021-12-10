@@ -28,3 +28,9 @@ body,
 .el-cascader-menu {
   height: 300px;
 }
+.el-step__title {
+  font-size: 13px;
+} 
+.ql-editor {
+  min-height: 350px;
+}
