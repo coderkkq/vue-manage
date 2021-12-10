@@ -127,14 +127,7 @@ export default {
       queryInfo: {
         query: "",
         pagenum: 1,
-        pagesize: 5,
-        user_id: "",
-        pay_status: "",
-        is_send: "",
-        order_fapiao_title: "",
-        order_fapiao_company: "",
-        order_fapiao_content: "",
-        consignee_addr: "",
+        pagesize: 5
       },
       // 订单数据列表
       orderDataList: [],
